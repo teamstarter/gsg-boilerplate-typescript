@@ -2,27 +2,25 @@
 
 This project is a boilerplate to quickly get started with graphql-sequelize-generator on a Typescript project.
 
-It's a To Do list app that allows you to manage tasks (create, update, delete, count).
+It's a simple To Do list app based on [this codepen](https://codepen.io/karlomajer/pen/rvyyvV) that allows you to manage tasks (create, update, delete, count).
 
 ## Getting Started
 
 First you need to clone the project.
 
 ```
-$ git clone https://github.com/teamstarter/gsg-boilerplate-typescript.git
-
-or
-
-git clone git@github.com:teamstarter/gsg-boilerplate-typescript.git
+$ git clone git@github.com:teamstarter/gsg-boilerplate-typescript.git
 ```
 
 Then install all the dependencies of the project
 
 ```
-$ yarn add
+$ yarn
 ```
 
-Then you need to initialize the database. It's a sqlite database as described in ./config/config.json. The following command will create or replace the ./data/database.sqlite and run the migrations and the seeds.
+Then you need to initialize the database before starting the prohect. It is configured by default with an sqlite database as described in ./config/config.json. The following command will create or replace the ./data/database.sqlite and run the migrations and the seeds.
+
+You can use any [Sequelize](https://sequelize.org/master/manual/getting-started.html)-compatible database (Postgresql, MySQL, etc...)
 
 ```
 $ yarn db-reset
@@ -34,11 +32,11 @@ Once the database is initialized, you can run the project
 $ yarn dev
 ```
 
-The app is running on http://locahost:3000. You can test it
+You can then test the app at this address: http://locahost:3000.
 
 ## The Server
 
-It is a node server written in Typescript. The server generates a GraphQL schema. It only declares basic queries and subscriptions to keep it simple.
+It's a node server written in Typescript. It generates a GraphQL schema based on a few declarations of queries, mutations and subscriptions.
 
 ```typescript
 graphqlSchemaDeclaration.task = {
@@ -48,7 +46,7 @@ graphqlSchemaDeclaration.task = {
 }
 ```
 
-The schema uses the task model (in the models folder)
+GSG requires a task model (in the models folder), to work with the above configuration.
 
 ```typescript
 export default function Task(sequelize: any) {
@@ -82,15 +80,14 @@ export default function Task(sequelize: any) {
 }
 ```
 
-The server gives an endpoint (/graphql) to execute get queries from the app.
+The server generates an endpoint (/graphql) to execute get/post queries from the app.
 
 ## The App
 
-It is a React app initialized using create-react-app. This boilerplate uses Typescript.
+This boilerplace uses React. It was initialized using create-react-app in Typescript.
 
-The app uses apollo (the @apollo/client package). The apollo client is created in the ./src/graphql/client.ts file.
-
-We can send queries to the server to get or send data. In the following example, the query gets the lsit of tasks.
+The app uses apollo (the @apollo/client package) which allows you
+to quickly send queries to the server to get or send data. In the following example, the query gets a list of tasks.
 
 ```typescript
 const GET_TASKS = gql`
@@ -103,23 +100,22 @@ const GET_TASKS = gql`
   }
 ```
 
-## Available Scripts
+## Available Commands
 
 In the project directory, you can run:
 
 ### `yarn dev`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser while reloading if you make edits.
 
-The page will reload if you make edits.<br />
 The `yarn dev` command runs the app and the server with pm2.
 
 ### `yarn db-reset`
 
-creates a sqlite database file in the data folder and runs the migrations ans seeds. If the database file already exists the file is replaced by a new one. This command is useful to clean the database and get a default one.
+Creates a sqlite database file in the data folder and runs the migrations and seeds. If the database file already exists the file is replaced by a new one. This command is useful to clean the database and get a default one.
 
-### `pm2 log`
+### `./node_modules/.bin/pm2 log`
 
 Use this command to print logs in the terminal. It's useful to have some realtime logs when you need to debug your app.
 
@@ -128,3 +124,7 @@ Use this command to print logs in the terminal. It's useful to have some realtim
 You can learn more about graphql-sequelize-generator [here](https://github.com/teamstarter/graphql-sequelize-generator).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+To learn Typescript, check out the [Typescript documentation](https://www.typescriptlang.org/)
+
+To learn Graphql, check out the [GraphQL documentation](https://graphql.org/)
