@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.2.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -10,16 +11,32 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "apollo-client": "^2.6.10",
+    "graphql": "^15.3.0",
+    "graphql-relay": "^0.6.0",
+    "graphql-sequelize": "^9.4.0",
+    "graphql-sequelize-generator": "^7.1.5",
+    "pm2": "^4.5.0",
     "react": "^16.14.0",
+    "react-apollo": "^3.1.5",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
-    "typescript": "~3.7.2"
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0",
+    "subscriptions-transport-ws": "^0.9.18",
+    "ts-node": "^9.0.0",
+    "ts-node-dev": "^1.0.0-pre.65",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.3",
+    "use-debounce": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "pm2 delete all -s; DEBUG=* pm2 startOrReload ecosystem.config.js && pm2 start react-scripts --name web -- start",
+    "db-reset": "rm -f data/database.sqlite && ./node_modules/.bin/sequelize db:migrate --config config/config.json && ./node_modules/.bin/sequelize db:seed:all --config config/config.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +52,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0",
+    "ts-node-dev": "^1.0.0-pre.65"
   }
 }

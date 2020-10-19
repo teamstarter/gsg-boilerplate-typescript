@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# gsg-boilerplate-typescript
+
+This project is a boilerplate to quickly get started with graphql-sequelize-generator on a Typescript project.
 
 ## Available Scripts
 
