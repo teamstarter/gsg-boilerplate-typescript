@@ -12,13 +12,25 @@ First you need to clone the project.
 $ git clone git@github.com:teamstarter/gsg-boilerplate-typescript.git
 ```
 
+This project uses the 12.18.1 version of Node. You can switch to the right version using nvm.
+
+```
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+```
+
+Then choose the rigth version
+
+```
+$ nvm use
+```
+
 Then install all the dependencies of the project
 
 ```
 $ yarn
 ```
 
-Then you need to initialize the database before starting the prohect. It is configured by default with an sqlite database as described in ./config/config.json. The following command will create or replace the ./data/database.sqlite and run the migrations and the seeds.
+Then you need to initialize the database before starting the project. It is configured by default with an sqlite database as described in ./config/config.json. The following command will create or replace the ./data/database.sqlite and run the migrations and the seeds.
 
 You can use any [Sequelize](https://sequelize.org/master/manual/getting-started.html)-compatible database (Postgresql, MySQL, etc...)
 
