@@ -131,6 +131,10 @@ Creates a sqlite database file in the data folder and runs the migrations and se
 
 Use this command to print logs in the terminal. It's useful to have some realtime logs when you need to debug your app.
 
+### `./node_modules/.bin/pm2 delete all`
+
+This command will stop your app.
+
 ## Learn More
 
 You can learn more about graphql-sequelize-generator [here](https://github.com/teamstarter/graphql-sequelize-generator).
@@ -140,3 +144,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 To learn Typescript, check out the [Typescript documentation](https://www.typescriptlang.org/)
 
 To learn Graphql, check out the [GraphQL documentation](https://graphql.org/)
+
+You can learn more about pm2 [here](https://pm2.keymetrics.io/)
