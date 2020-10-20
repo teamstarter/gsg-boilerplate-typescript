@@ -4,12 +4,19 @@ import { useDebouncedCallback } from 'use-debounce'
 
 import { Task } from '../customTypes'
 
-export default function TaskElement({ id, name, active }: Task) {
+export default function TaskElement({
+  task,
+  reloadList,
+}: {
+  task: Task
+  reloadList: () => void
+}) {
   const UPDATE_TASK = gql`
     mutation UpdateTask($task: taskInput!) {
       taskUpdate(task: $task) {
         id
         name
+        active
       }
     }
   `
@@ -19,16 +26,19 @@ export default function TaskElement({ id, name, active }: Task) {
     }
   `
 
+  const { id, name, active } = task
+
   const [taskUpdate] = useMutation(UPDATE_TASK)
 
   const [taskDelete] = useMutation(DELETE_TASK)
 
-  function handleCheck(e: ChangeEvent<HTMLInputElement>) {
-    taskUpdate({
+  async function handleCheck(e: ChangeEvent<HTMLInputElement>) {
+    await taskUpdate({
       variables: {
         task: { id: id, active: !e.currentTarget.checked },
       },
     })
+    reloadList()
   }
 
   function handleDelete(e: MouseEvent<HTMLButtonElement>) {

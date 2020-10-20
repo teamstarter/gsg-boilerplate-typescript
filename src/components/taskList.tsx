@@ -73,7 +73,7 @@ export default function TaskList({ status }: { status: string }) {
   return (
     <ul id="todos" className="todos" aria-label="List of to do tasks">
       {data.task.map((task: Task) => (
-        <TaskElement {...task} key={task.id} />
+        <TaskElement task={task} key={task.id} reloadList={refetch} />
       ))}
     </ul>
   )
