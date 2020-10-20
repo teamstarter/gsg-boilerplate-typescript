@@ -12,7 +12,7 @@ First you need to clone the project.
 $ git clone git@github.com:teamstarter/gsg-boilerplate-typescript.git
 ```
 
-This project uses the 12.18.1 version of Node. You can switch to the right version using nvm.
+This project uses the 12.18.1 version of Node. You can switch to the right version using nvm. Install nvm if you don't have it
 
 ```
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
