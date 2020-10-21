@@ -54,7 +54,7 @@ It's a node server written in Typescript. It generates a GraphQL schema based on
 graphqlSchemaDeclaration.task = {
   model: models.task,
   actions: ['list', 'create', 'update', 'delete', 'count'],
-  subscriptions: ['create', 'update', 'delete'],
+  subscriptions: ['create', 'update', 'delete']
 }
 ```
 
@@ -68,23 +68,23 @@ export default function Task(sequelize: any) {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        autoIncrement: true
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       active: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
     {
       sequelize,
       freezeTableName: true,
       modelName: 'task',
       paranoid: true,
-      timestamps: true,
+      timestamps: true
     }
   )
 
@@ -137,7 +137,7 @@ This command will stop your app.
 
 ## Learn More
 
-You can learn more about graphql-sequelize-generator [here](https://github.com/teamstarter/graphql-sequelize-generator).
+You can learn more about graphql-sequelize-generator [here](https://teamstarter.github.io/gsg-documentation/).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
