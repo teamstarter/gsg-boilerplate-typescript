@@ -127,6 +127,11 @@ The `yarn dev` command runs the app and the server with pm2.
 
 Creates a sqlite database file in the data folder and runs the migrations and seeds. If the database file already exists the file is replaced by a new one. This command is useful to clean the database and get a default one.
 
+### `yarn db-migrate`
+
+Run the migration in the "migrations" folder if they have not yet been successfully migrated.
+For more information on how the sequelize migrations works, check [here](https://sequelize.org/docs/v6/other-topics/migrations/).
+
 ### `./node_modules/.bin/pm2 log`
 
 Use this command to print logs in the terminal. It's useful to have some realtime logs when you need to debug your app.

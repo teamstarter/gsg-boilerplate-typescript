@@ -36,7 +36,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "pm2 delete all -s; DEBUG=* pm2 startOrReload ecosystem.config.js && pm2 start react-scripts --name web -- start",
-    "db-reset": "rm -f data/database.sqlite && ./node_modules/.bin/sequelize db:migrate --config config/config.json && ./node_modules/.bin/sequelize db:seed:all --config config/config.json"
+    "db-reset": "rm -f data/database.sqlite && ./node_modules/.bin/sequelize db:migrate --config config/config.json && ./node_modules/.bin/sequelize db:seed:all --config config/config.json",
+    "db-migrate": "./node_modules/.bin/sequelize db:migrate --config config/config.json"
   },
   "eslintConfig": {
     "extends": "react-app"
