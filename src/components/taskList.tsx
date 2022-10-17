@@ -10,6 +10,7 @@ const GET_TASKS = gql`
       id
       name
       active
+      color
     }
   }
 `
@@ -45,9 +46,9 @@ export default function TaskList({ status }: { status: string }) {
     variables: {
       order: 'reverse:createdAt',
       where: {
-        active: isActive(status),
-      },
-    },
+        active: isActive(status)
+      }
+    }
   })
 
   useEffect(() => {
@@ -57,13 +58,13 @@ export default function TaskList({ status }: { status: string }) {
   useSubscription(TASK_ADDED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   useSubscription(TASK_DELETED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   if (loading) return <p>Loading ...</p>

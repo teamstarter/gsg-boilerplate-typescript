@@ -112,6 +112,12 @@ const GET_TASKS = gql`
   }
 ```
 
+## How to add a field?
+
+Look at the "migrations" folder, duplicate the last migration, change the timestamp and add your field(s).
+Add the field in the models/task.ts file.
+And run **yarn db-migrate**, and that's it! The field will be available on the GraphQL object after pm2 reloads the server.
+
 ## Available Commands
 
 In the project directory, you can run:

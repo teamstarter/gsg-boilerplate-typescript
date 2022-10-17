@@ -16,6 +16,10 @@ export default function Task(sequelize: any) {
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false
+      },
+      color: {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     },
     {
