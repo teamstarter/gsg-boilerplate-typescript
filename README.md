@@ -32,7 +32,7 @@ $ yarn
 
 Then you need to initialize the database before starting the project. It is configured by default with an sqlite database as described in ./config/config.json. The following command will create or replace the ./data/database.sqlite and run the migrations and the seeds.
 
-You can use any [Sequelize](https://sequelize.org/master/manual/getting-started.html)-compatible database (Postgresql, MySQL, etc...)
+You can use any [Sequelize](https://sequelize.org/master/manual/getting-started.html)-compatible database (Postgresql, MySQL, etc...), but the project will work with the default one without any problem.
 
 ```
 $ yarn db-reset
@@ -44,7 +44,7 @@ Once the database is initialized, you can run the project
 $ yarn dev
 ```
 
-You can then test the app at this address: http://locahost:3000.
+You can then test the app at this address: [http://locahost:3000](http://locahost:3000) and the GraphQL dashboard at this URL: [http://localhost:8080/graphql](http://localhost:8080/graphql).
 
 ## The Server
 
@@ -126,6 +126,8 @@ In the project directory, you can run:
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser while reloading if you make edits.
+
+A dashboard is also available to test your GraphQL schema at this URL: [http://localhost:8080/graphql](http://localhost:8080/graphql).
 
 The `yarn dev` command runs the app and the server with pm2.
 
