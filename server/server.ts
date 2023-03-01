@@ -1,45 +1,33 @@
-import express from 'express'
-import http from 'http'
-import {
-  generateModelTypes,
-  generateApolloServer,
-} from 'graphql-sequelize-generator'
-import { graphqlSchemaDeclarationType } from 'graphql-sequelize-generator/types'
-import { PubSub } from 'graphql-subscriptions'
+const express = require('express')
+const { expressMiddleware } = require('@apollo/server/express4')
+const http = require('http')
+const cors = require('cors')
+const { json } = require('body-parser')
 
-import models from '../models'
+const setupServer = require('./schema')
 
-const types = generateModelTypes(models)
+const createServer = async (options = {}, globalPreCallback = () => null) => {
+  const app = express()
+  options = {
+    spdy: { plain: true },
+    ...options
+  }
+  const httpServer = http.createServer(options, app)
+  const { server } = setupServer(globalPreCallback, httpServer)
+  await server.start()
+  //server.applyMiddleware({ app, path: '/graphql' })
+  app.use('/graphql', cors(), json(), expressMiddleware(server, {}))
 
-let graphqlSchemaDeclaration: graphqlSchemaDeclarationType = {}
+  await new Promise(resolve => {
+    httpServer.listen(process.env.PORT || 8080, () => {
+      resolve()
+    })
 
-graphqlSchemaDeclaration.task = {
-  model: models.task,
-  actions: ['list', 'create', 'update', 'delete', 'count'],
-  subscriptions: ['create', 'update', 'delete'],
+    console.log(
+      `🚀 Server ready at http://localhost:${process.env.PORT || 8080}/graphql`
+    )
+  })
+  return httpServer
 }
 
-const pubSubInstance = new PubSub()
-
-const server = generateApolloServer({
-  graphqlSchemaDeclaration,
-  types,
-  models,
-  pubSubInstance,
-})
-
-const app = express()
-server.applyMiddleware({
-  app,
-  path: '/graphql',
-})
-
-const port = process.env.PORT || 8080
-
-const serverHttp = http.createServer({}, app).listen(port, async () => {
-  console.log(
-    `🚀 http/https/h2 server runs on  http://localhost:${port}/graphql .`
-  )
-})
-
-server.installSubscriptionHandlers(serverHttp)
+createServer()

@@ -1,18 +1,19 @@
 import { split, HttpLink } from '@apollo/client'
 import { getMainDefinition } from '@apollo/client/utilities'
-import { WebSocketLink } from '@apollo/client/link/ws'
+
 import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
+import { createClient } from 'graphql-ws'
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: 'http://localhost:8080/graphql'
 })
 
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:8080/graphql`,
-  options: {
-    reconnect: true,
-  },
-})
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: `ws://localhost:8080/graphql`
+  })
+)
 
 // The split function takes three parameters:
 //
@@ -33,7 +34,7 @@ const splitLink = split(
 
 const client = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 })
 
 export default client
