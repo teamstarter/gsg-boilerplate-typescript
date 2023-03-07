@@ -1,13 +1,13 @@
 import { GraphqlSchemaDeclarationType } from 'graphql-sequelize-generator/types'
 
-const {
+import {
   generateModelTypes,
   generateApolloServer
-} = require('graphql-sequelize-generator')
-const { WebSocketServer } = require('ws')
-const { PubSub } = require('graphql-subscriptions')
+} from 'graphql-sequelize-generator'
+import { WebSocketServer } from 'ws'
+import { PubSub } from 'graphql-subscriptions'
 
-const models = require('../models')
+import models from '../models'
 
 const types = generateModelTypes(models)
 

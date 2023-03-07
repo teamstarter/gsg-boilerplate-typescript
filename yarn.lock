@@ -6650,10 +6650,9 @@ graphql-relay@^0.6.0:
   dependencies:
     prettier "^1.16.0"
 
-graphql-sequelize-generator@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/graphql-sequelize-generator/-/graphql-sequelize-generator-8.0.0.tgz#80a712de79e9e77eb2248d979a67f86a427a42ff"
-  integrity sha512-yTNX/gcUP2jGrkSU0+kx2QnD+mOgcnolf4hT1kWkS6At0r6RrySFfcmUotYgmvOOHvPMJEtJ0YAey06Pi5txJA==
+"graphql-sequelize-generator@https://github.com/SGO34/graphql-sequelize-generator#upgrade-gsg-Steve":
+  version "7.5.1"
+  resolved "https://github.com/SGO34/graphql-sequelize-generator#b7b98007a22f5f4f3758c472ee778322b0469d4e"
   dependencies:
     "@apollo/server" "^4.1.1"
     "@graphql-tools/schema" "^9.0.10"
@@ -10512,7 +10511,7 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
-react-scripts@^5.0.2:
+react-scripts@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-5.0.1.tgz#6285dbd65a8ba6e49ca8d651ce30645a6d980003"
   integrity sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==
