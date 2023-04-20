@@ -66,8 +66,8 @@ body {
 .todo-menu-1 {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 1fr;
-  grid-template-columns: 50px 1fr;
+  -ms-grid-columns: 50px 1fr 200px;
+  grid-template-columns: 50px 1fr 200px;
   -ms-grid-rows: 60px;
   grid-template-rows: 60px;
   -webkit-box-align: stretch;
@@ -82,6 +82,13 @@ body {
   outline: none;
   border: none;
   border-bottom: 1px solid #e6e6e6;
+}
+
+.add-todo-datetime-input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #e6e6e6;
+  padding-right: 10px;
 }
 
 ::-webkit-input-placeholder {
@@ -210,13 +217,14 @@ body {
   grid-auto-rows: max-content;
   list-style-type: none;
   overflow: auto;
+  padding-top: 4px;
 }
 
 .todos .todo {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 450px 50px;
-  grid-template-columns: 50px 450px 50px;
+  -ms-grid-columns: 50px 300px 150px 50px;
+  grid-template-columns: 50px 300px 150px 50px;
   border-bottom: 1px solid #ededed;
   -webkit-box-align: center;
   -ms-flex-align: center;

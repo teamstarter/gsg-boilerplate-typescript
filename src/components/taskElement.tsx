@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent } from 'react'
+import React, { ChangeEvent, MouseEvent, useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { useDebouncedCallback } from 'use-debounce'
 
@@ -6,7 +6,7 @@ import { Task } from '../customTypes'
 
 export default function TaskElement({
   task,
-  reloadList,
+  reloadList
 }: {
   task: Task
   reloadList: () => void
@@ -26,7 +26,8 @@ export default function TaskElement({
     }
   `
 
-  const { id, name, active } = task
+  const { id, name, active, date } = task
+  const dateString = new Date(date * 1000).toLocaleString()
 
   const [taskUpdate] = useMutation(UPDATE_TASK)
 
@@ -35,8 +36,8 @@ export default function TaskElement({
   async function handleCheck(e: ChangeEvent<HTMLInputElement>) {
     await taskUpdate({
       variables: {
-        task: { id: id, active: !e.currentTarget.checked },
-      },
+        task: { id: id, active: !e.currentTarget.checked }
+      }
     })
     reloadList()
   }
@@ -44,8 +45,8 @@ export default function TaskElement({
   function handleDelete(e: MouseEvent<HTMLButtonElement>) {
     taskDelete({
       variables: {
-        id: id,
-      },
+        id: id
+      }
     })
   }
 
@@ -53,8 +54,8 @@ export default function TaskElement({
     (value: any) => {
       taskUpdate({
         variables: {
-          task: { id: id, name: value },
-        },
+          task: { id: id, name: value }
+        }
       })
     },
     1000
@@ -76,9 +77,10 @@ export default function TaskElement({
       </div>
       <input
         className={`todo-text ${!active && 'todo-checked-text'}`}
-        onChange={(e) => debouncedHandleUpdate(e.currentTarget.value)}
+        onChange={e => debouncedHandleUpdate(e.currentTarget.value)}
         defaultValue={name}
       ></input>
+      <p>{dateString}</p>
       <button className="delete-button" onClick={handleDelete}>
         ×
       </button>

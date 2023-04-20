@@ -11,6 +11,7 @@ const GET_TASKS = gql`
       name
       active
       color
+      date
     }
   }
 `
@@ -21,6 +22,7 @@ const TASK_ADDED = gql`
       id
       name
       active
+      date
     }
   }
 `
@@ -31,6 +33,7 @@ const TASK_DELETED = gql`
       id
       name
       active
+      date
     }
   }
 `
