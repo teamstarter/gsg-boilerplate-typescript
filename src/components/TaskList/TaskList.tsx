@@ -77,8 +77,13 @@ interface TaskListProps {
   content: Task[]
 }
 
-export default function TaskList({ status }: { status: string }) {
-  // const [sortedData, setSortedData] = useState<Task[]>([])
+export default function TaskList({
+  status,
+  sortMode
+}: {
+  status: string
+  sortMode: boolean
+}) {
   const [taskList, setTaskList] = useState<TaskListProps[]>([])
 
   function isActive(status: string) {
@@ -113,7 +118,10 @@ export default function TaskList({ status }: { status: string }) {
     const exceededTasks: Task[] = []
 
     if (data && data.task) {
-      data.task.forEach((task: Task) => {
+      let dataTmp = [...data.task]
+      if (sortMode) dataTmp.sort(recentSort)
+      else dataTmp.sort(oldSort)
+      dataTmp.forEach((task: Task) => {
         const taskTime = task.date * 1000
         if (taskTime < actualTime) exceededTasks.push(task)
         else if (taskTime < actualTime + 86400000) todayTasks.push(task)
@@ -127,7 +135,7 @@ export default function TaskList({ status }: { status: string }) {
       { title: 'Later', content: laterTasks },
       { title: 'Exceeded', content: exceededTasks }
     ])
-  }, [data])
+  }, [data, sortMode])
 
   useEffect(() => {
     refetch()

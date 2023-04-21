@@ -40,13 +40,19 @@ const TASK_DELETED = gql`
   }
 `
 
-export default function Foot({
-  select,
-  currentStatus
-}: {
+interface FootProps {
   select: (status: string) => void
   currentStatus: string
-}) {
+  sortMode: boolean
+  setSortMode: (sortMode: boolean) => void
+}
+
+export default function Foot({
+  select,
+  currentStatus,
+  sortMode,
+  setSortMode
+}: FootProps) {
   const { loading, data, refetch } = useQuery(GET_TASKS_COUNT, {
     variables: {
       where: {
@@ -86,11 +92,23 @@ export default function Foot({
           Todos left: {data.taskCount}
         </label>
         <img
-          className="recent-sort-arrow active"
+          className={
+            sortMode ? 'recent-sort-arrow active' : 'recent-sort-arrow'
+          }
           src={arrow}
           alt="recent-arrow"
+          onClick={() => {
+            setSortMode(true)
+          }}
         />
-        <img className="old-sort-arrow" src={arrow} alt="old-arrow" />
+        <img
+          className={sortMode ? 'old-sort-arrow' : 'old-sort-arrow active'}
+          src={arrow}
+          alt="old-arrow"
+          onClick={() => {
+            setSortMode(false)
+          }}
+        />
       </div>
       <div id="todoMenu2Buttons" className="todo-menu-2-buttons">
         <button

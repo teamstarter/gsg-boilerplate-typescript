@@ -8,6 +8,7 @@
   height: 22px;
   width: 22px;
   border-radius: 3px;
+  border: 1px solid #f4f5f6;
 }
 
 #todoMenu2 #todoMenu2LeftPart > img:nth-child(2) {
