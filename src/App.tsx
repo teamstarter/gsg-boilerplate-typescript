@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import Form from './components/form'
-import Tasklist from './components/taskList'
+import Tasklist from './components/TaskList/TaskList'
 import Foot from './components/foot'
 import './App.css'
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { gql, useQuery, useSubscription } from '@apollo/client'
-import './taskList.css'
+import './TaskList.css'
 
-import TaskElement from './taskElement'
-import { Task } from '../customTypes'
+import TaskElement from '../TaskElement/TaskElement'
+import { Task } from '../../customTypes'
 
 const GET_TASKS = gql`
   query GetTasks($order: String, $where: SequelizeJSON) {

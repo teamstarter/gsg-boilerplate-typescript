@@ -1,8 +1,9 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react'
+import React, { ChangeEvent, MouseEvent } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { useDebouncedCallback } from 'use-debounce'
+import './TaskElement.css'
 
-import { Task } from '../customTypes'
+import { Task } from '../../customTypes'
 
 export default function TaskElement({
   task,
