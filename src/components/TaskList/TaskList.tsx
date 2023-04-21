@@ -40,19 +40,7 @@ const TASK_DELETED = gql`
 `
 
 const TaskFrame = ({ title, children }: { title: string; children: any }) => {
-  const [open, setOpen] = useState(false)
-
-  const handleClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.currentTarget
-    const currentTransform = target.style.transform
-    let newTransform = currentTransform
-
-    !open
-      ? (newTransform = `rotate(${0}deg)`)
-      : (newTransform = `rotate(${-90}deg)`)
-    target.style.setProperty('transform', newTransform)
-    setOpen(!open)
-  }
+  const [open, setOpen] = useState(title === 'Today' ? true : false)
 
   return (
     <div className="task-frame">
@@ -61,7 +49,8 @@ const TaskFrame = ({ title, children }: { title: string; children: any }) => {
           id="toggleAll"
           className="toggle-all"
           aria-label="Toggle all to do tasks"
-          onClick={handleClicked}
+          style={{ transform: `rotate(${open ? 0 : -90}deg)` }}
+          onClick={() => setOpen(!open)}
         >
           <span className="rotate">❯</span>
         </button>

@@ -97,17 +97,13 @@ export default function Foot({
           }
           src={arrow}
           alt="recent-arrow"
-          onClick={() => {
-            setSortMode(true)
-          }}
+          onClick={() => setSortMode(true)}
         />
         <img
           className={sortMode ? 'old-sort-arrow' : 'old-sort-arrow active'}
           src={arrow}
           alt="old-arrow"
-          onClick={() => {
-            setSortMode(false)
-          }}
+          onClick={() => setSortMode(false)}
         />
       </div>
       <div id="todoMenu2Buttons" className="todo-menu-2-buttons">
