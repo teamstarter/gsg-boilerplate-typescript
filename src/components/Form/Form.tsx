@@ -1,5 +1,6 @@
 import React, { KeyboardEvent, useEffect } from 'react'
 import { gql, useMutation } from '@apollo/client'
+import './Form.css'
 
 export default function Form() {
   const GMT = 2

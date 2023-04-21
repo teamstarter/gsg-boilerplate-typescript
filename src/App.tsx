@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import Form from './components/form'
+import Form from './components/Form/Form'
 import Tasklist from './components/TaskList/TaskList'
-import Foot from './components/foot'
+import Foot from './components/Foot/Foot'
 import './App.css'
 
 function App() {

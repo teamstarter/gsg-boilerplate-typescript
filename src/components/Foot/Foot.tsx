@@ -1,5 +1,8 @@
 import { gql, useQuery, useSubscription } from '@apollo/client'
 import React from 'react'
+import './Foot.css'
+/* Ressources */
+import arrow from './Ressources/arrow.svg'
 
 const GET_TASKS_COUNT = gql`
   query GetTasksCount($where: SequelizeJSON) {
@@ -39,7 +42,7 @@ const TASK_DELETED = gql`
 
 export default function Foot({
   select,
-  currentStatus,
+  currentStatus
 }: {
   select: (status: string) => void
   currentStatus: string
@@ -47,40 +50,48 @@ export default function Foot({
   const { loading, data, refetch } = useQuery(GET_TASKS_COUNT, {
     variables: {
       where: {
-        active: true,
-      },
-    },
+        active: true
+      }
+    }
   })
 
   useSubscription(TASK_ADDED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   useSubscription(TASK_UPDATED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   useSubscription(TASK_DELETED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   if (loading) return <p>Loading ...</p>
 
   return (
     <div id="todoMenu2" className="todo-menu-2">
-      <label
-        id="todosLeft"
-        className="todos-left"
-        aria-label="Number of to do tasks left to complete"
-      >
-        Todos left: {data.taskCount}
-      </label>
+      <div id="todoMenu2LeftPart" className="todo-meny-2-left-part">
+        <label
+          id="todosLeft"
+          className="todos-left"
+          aria-label="Number of to do tasks left to complete"
+        >
+          Todos left: {data.taskCount}
+        </label>
+        <img
+          className="recent-sort-arrow active"
+          src={arrow}
+          alt="recent-arrow"
+        />
+        <img className="old-sort-arrow" src={arrow} alt="old-arrow" />
+      </div>
       <div id="todoMenu2Buttons" className="todo-menu-2-buttons">
         <button
           id="showAllTodos"
@@ -100,9 +111,8 @@ export default function Foot({
         </button>
         <button
           id="showCompletedTodos"
-          className={`menu-2-button ${
-            currentStatus === 'completed' && 'active'
-          }`}
+          className={`menu-2-button ${currentStatus === 'completed' &&
+            'active'}`}
           aria-label="Show completed to do tasks"
           onClick={() => select('completed')}
         >

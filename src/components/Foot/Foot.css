@@ -1,0 +1,21 @@
+#todoMenu2 #todoMenu2LeftPart {
+  display: flex;
+  align-items: center;
+}
+
+#todoMenu2 #todoMenu2LeftPart > img {
+  padding: 1px 2px;
+  height: 22px;
+  width: 22px;
+  border-radius: 3px;
+}
+
+#todoMenu2 #todoMenu2LeftPart > img:nth-child(2) {
+  transform: rotate(-90deg);
+  margin-left: 10px;
+}
+
+#todoMenu2 #todoMenu2LeftPart > img:last-child {
+  transform: rotate(90deg);
+  margin-left: 4px;
+}
