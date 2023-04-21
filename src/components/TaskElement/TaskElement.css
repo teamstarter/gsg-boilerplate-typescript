@@ -1,0 +1,26 @@
+.task-frame .todo {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50px 300px 150px 50px;
+  grid-template-columns: 50px 300px 150px 50px;
+  border-bottom: 1px solid #ededed;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow-wrap: break-word;
+  /* word-wrap is renamed to overflow-wrap but Edge still uses word-wrap */
+  word-wrap: break-word;
+}
+
+.task-frame .todo .pretty {
+  -ms-grid-column-align: center;
+  justify-self: center;
+  -webkit-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+  margin: 0;
+}
+
+.task-frame .todo:hover .delete-button {
+  visibility: visible;
+}

@@ -135,21 +135,14 @@ export default function TaskList({ status }: { status: string }) {
   if (error) return <p>An error occured while loading the tasks !</p>
 
   return (
-    <ul id="todos" className="todos" aria-label="List of to do tasks">
-      {data.task.map((task: Task) => (
-        <TaskElement task={task} key={task.id} reloadList={refetch} />
+    <div>
+      {taskList.map((taskList: TaskListProps) => (
+        <TaskFrame title={taskList.title} key={taskList.title}>
+          {taskList.content.map((task: Task) => (
+            <TaskElement task={task} key={task.id} reloadList={refetch} />
+          ))}
+        </TaskFrame>
       ))}
-    </ul>
+    </div>
   )
-  // return (
-  //   <div>
-  //     {taskList.map((taskList: TaskListProps) => (
-  //       <TaskFrame title={taskList.title} key={taskList.title}>
-  //         {taskList.content.map((task: Task) => (
-  //           <TaskElement task={task} key={task.id} reloadList={refetch} />
-  //         ))}
-  //       </TaskFrame>
-  //     ))}
-  //   </div>
-  // )
 }
