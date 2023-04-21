@@ -9,10 +9,10 @@
   overflow: unset;
 }
 
-.task-frame div:first-child {
+.task-frame > div:first-child {
   /* border: 1px solid black; */
   display: grid;
-  grid-template-columns: 50px 100px;
+  grid-template-columns: 50px 1fr;
   grid-template-rows: 50px;
 }
 
@@ -22,6 +22,5 @@
 
 .task-frame div:first-child h3 {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
