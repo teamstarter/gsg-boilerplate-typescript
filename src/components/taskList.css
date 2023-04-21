@@ -1,0 +1,26 @@
+/* TASK FRAME */
+.task-frame {
+  margin-top: 20px;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: max-content;
+  overflow: auto;
+  box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.19);
+}
+
+.task-frame div:first-child {
+  /* border: 1px solid black; */
+  display: grid;
+  grid-template-columns: 50px 100px;
+  grid-template-rows: 50px;
+}
+
+.task-frame div:first-child button {
+  transform: rotate(-90deg);
+}
+
+.task-frame div:first-child h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

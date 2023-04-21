@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { gql, useQuery, useSubscription } from '@apollo/client'
+import './taskList.css'
 
 import TaskElement from './taskElement'
 import { Task } from '../customTypes'
@@ -38,8 +39,32 @@ const TASK_DELETED = gql`
   }
 `
 
+const TaskFrame = ({ title, children }: { title: string; children: any }) => {
+  return (
+    <div className="task-frame">
+      <div>
+        <button
+          id="toggleAll"
+          className="toggle-all"
+          aria-label="Toggle all to do tasks"
+        >
+          <span className="rotate">❯</span>
+        </button>
+        <h3>{title}</h3>
+      </div>
+      {children}
+    </div>
+  )
+}
+
+interface TaskListProps {
+  title: string
+  content: Task[]
+}
+
 export default function TaskList({ status }: { status: string }) {
-  const [sortedData, setSortedData] = useState<Task[]>([])
+  // const [sortedData, setSortedData] = useState<Task[]>([])
+  const [taskList, setTaskList] = useState<TaskListProps[]>([])
 
   function isActive(status: string) {
     if (status === 'active') return true
@@ -81,8 +106,12 @@ export default function TaskList({ status }: { status: string }) {
         else laterTasks.push(task)
       })
     }
-    // const sortedData = [...data.task].sort(compareDate)
-    // setSortedData(sortedData)
+    setTaskList([
+      { title: 'Today', content: todayTasks },
+      { title: 'This week', content: thisWeekTasks },
+      { title: 'Later', content: laterTasks },
+      { title: 'Exceeded', content: exceededTasks }
+    ])
   }, [data])
 
   useEffect(() => {
@@ -112,4 +141,15 @@ export default function TaskList({ status }: { status: string }) {
       ))}
     </ul>
   )
+  // return (
+  //   <div>
+  //     {taskList.map((taskList: TaskListProps) => (
+  //       <TaskFrame title={taskList.title} key={taskList.title}>
+  //         {taskList.content.map((task: Task) => (
+  //           <TaskElement task={task} key={task.id} reloadList={refetch} />
+  //         ))}
+  //       </TaskFrame>
+  //     ))}
+  //   </div>
+  // )
 }
