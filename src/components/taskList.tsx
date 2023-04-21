@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { gql, useQuery, useSubscription } from '@apollo/client'
 
 import TaskElement from './taskElement'
@@ -39,6 +39,8 @@ const TASK_DELETED = gql`
 `
 
 export default function TaskList({ status }: { status: string }) {
+  const [sortedData, setSortedData] = useState<Task[]>([])
+
   function isActive(status: string) {
     if (status === 'active') return true
     else if (status === 'completed') return false
@@ -53,6 +55,35 @@ export default function TaskList({ status }: { status: string }) {
       }
     }
   })
+
+  /* SORT PART */
+  const recentSort = (a: Task, b: Task) => {
+    return a.date - b.date
+  }
+
+  const oldSort = (a: Task, b: Task) => {
+    return b.date - a.date
+  }
+
+  useEffect(() => {
+    const actualTime = Date.now()
+    const todayTasks: Task[] = []
+    const thisWeekTasks: Task[] = []
+    const laterTasks: Task[] = []
+    const exceededTasks: Task[] = []
+
+    if (data && data.task) {
+      data.task.forEach((task: Task) => {
+        const taskTime = task.date * 1000
+        if (taskTime < actualTime) exceededTasks.push(task)
+        else if (taskTime < actualTime + 86400000) todayTasks.push(task)
+        else if (taskTime < actualTime + 604800000) thisWeekTasks.push(task)
+        else laterTasks.push(task)
+      })
+    }
+    // const sortedData = [...data.task].sort(compareDate)
+    // setSortedData(sortedData)
+  }, [data])
 
   useEffect(() => {
     refetch()
