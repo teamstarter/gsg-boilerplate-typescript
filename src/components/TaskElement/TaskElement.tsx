@@ -82,7 +82,12 @@ export default function TaskElement({
         defaultValue={name}
         style={{ color: color }}
       ></input>
-      <p style={{ color: color }}>{dateString}</p>
+      <p
+        className={`todo-date ${!active && 'todo-checked-date'}`}
+        style={{ color: color }}
+      >
+        {dateString}
+      </p>
       <button className="delete-button" onClick={handleDelete}>
         ×
       </button>

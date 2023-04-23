@@ -39,6 +39,13 @@ const TASK_DELETED = gql`
   }
 `
 
+enum titleTaskFrame {
+  TODAY = 'Today',
+  THIS_WEEK = 'This week',
+  LATER = 'Later',
+  EXCEEDED = 'Exceeded'
+}
+
 const TaskFrame = ({ title, children }: { title: string; children: any }) => {
   const [open, setOpen] = useState(title === 'Today' ? true : false)
 
@@ -119,10 +126,10 @@ export default function TaskList({
       })
     }
     setTaskList([
-      { title: 'Today', content: todayTasks },
-      { title: 'This week', content: thisWeekTasks },
-      { title: 'Later', content: laterTasks },
-      { title: 'Exceeded', content: exceededTasks }
+      { title: titleTaskFrame.TODAY, content: todayTasks },
+      { title: titleTaskFrame.THIS_WEEK, content: thisWeekTasks },
+      { title: titleTaskFrame.LATER, content: laterTasks },
+      { title: titleTaskFrame.EXCEEDED, content: exceededTasks }
     ])
   }, [data, sortMode])
 

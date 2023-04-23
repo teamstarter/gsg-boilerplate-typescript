@@ -24,3 +24,7 @@
 .task-frame .todo:hover .delete-button {
   visibility: visible;
 }
+
+.task-frame .todo .todo-checked-date {
+  text-decoration: line-through;
+}
