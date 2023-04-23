@@ -1,8 +1,26 @@
-import { gql, useQuery, useSubscription } from '@apollo/client'
+import { gql, useQuery, useSubscription, useMutation } from '@apollo/client'
 import React from 'react'
 import './Foot.css'
 /* Ressources */
 import arrow from './Ressources/arrow.svg'
+
+const GET_TASKS_COMPLETED = gql`
+  query GetTasks($order: String, $where: SequelizeJSON) {
+    task(order: $order, where: $where) {
+      id
+      name
+      active
+      color
+      date
+    }
+  }
+`
+
+const DELETE_TASK = gql`
+  mutation DeleteTask($id: Int!) {
+    taskDelete(id: $id)
+  }
+`
 
 const GET_TASKS_COUNT = gql`
   query GetTasksCount($where: SequelizeJSON) {
@@ -53,7 +71,13 @@ export default function Foot({
   sortMode,
   setSortMode
 }: FootProps) {
-  const { loading, data, refetch } = useQuery(GET_TASKS_COUNT, {
+  const [taskDelete] = useMutation(DELETE_TASK)
+
+  const {
+    loading: tasksCountLoading,
+    data: tasksCountData,
+    refetch: refetchTasksCount
+  } = useQuery(GET_TASKS_COUNT, {
     variables: {
       where: {
         active: true
@@ -61,25 +85,47 @@ export default function Foot({
     }
   })
 
+  const {
+    loading: tasksCompletedLoading,
+    data: tasksCompletedData,
+    refetch: refetchTasksCompleted
+  } = useQuery(GET_TASKS_COMPLETED, {
+    variables: {
+      where: {
+        active: false
+      }
+    }
+  })
+
   useSubscription(TASK_ADDED, {
     onSubscriptionData: () => {
-      refetch()
+      refetchTasksCount()
+      refetchTasksCompleted()
     }
   })
 
   useSubscription(TASK_UPDATED, {
     onSubscriptionData: () => {
-      refetch()
+      refetchTasksCount()
+      refetchTasksCompleted()
     }
   })
 
   useSubscription(TASK_DELETED, {
     onSubscriptionData: () => {
-      refetch()
+      refetchTasksCount()
+      refetchTasksCompleted()
     }
   })
 
-  if (loading) return <p>Loading ...</p>
+  const handleDeleteCompletedTasks = () => {
+    tasksCompletedData.task.forEach((element: any) => {
+      taskDelete({ variables: { id: element.id } })
+    })
+    refetchTasksCount()
+  }
+
+  if (tasksCountLoading && tasksCompletedLoading) return <p>Loading ...</p>
 
   return (
     <div id="todoMenu2" className="todo-menu-2">
@@ -89,7 +135,7 @@ export default function Foot({
           className="todos-left"
           aria-label="Number of to do tasks left to complete"
         >
-          Todos left: {data.taskCount}
+          Todos left: {tasksCountData.taskCount}
         </label>
         <img
           className={
@@ -137,7 +183,7 @@ export default function Foot({
         id="deleteCompletedButton"
         className="delete-completed-button"
         aria-label="Clear completed to do tasks"
-        style={{ display: 'none' }}
+        onClick={handleDeleteCompletedTasks}
       >
         Clear completed
       </button>
