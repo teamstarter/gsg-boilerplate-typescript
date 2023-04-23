@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect } from 'react'
+import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import './Form.css'
 
@@ -14,6 +14,7 @@ const Priority = ({ title, color }: { title: string; color: string }) => {
 export default function Form() {
   const GMT = 2
   const [dateNow, setDateNow] = React.useState('')
+  const [togglePriority, setTogglePriority] = useState(false)
 
   /* GRAPHQL MUTATION */
   const ADD_TASK = gql`
@@ -79,15 +80,20 @@ export default function Form() {
         id="toggleAll"
         className="toggle-all"
         aria-label="Toggle all to do tasks"
+        style={{ transform: `rotate(${togglePriority ? 0 : -90}deg)` }}
+        onClick={() => setTogglePriority(!togglePriority)}
       >
         <span className="rotate">❯</span>
-        <div className="select-priority">
-          <Priority title="Urgent" color="#8967d0" />
-          <Priority title="High" color="#e74c3c" />
-          <Priority title="Medium" color="#2ecc71" />
-          <Priority title="Low" color="#3498db" />
-        </div>
       </button>
+      <div
+        className="select-priority"
+        style={{ display: `${togglePriority ? 'block' : 'none'}` }}
+      >
+        <Priority title="Urgent" color="#8967d0" />
+        <Priority title="High" color="#e74c3c" />
+        <Priority title="Medium" color="#2ecc71" />
+        <Priority title="Low" color="#3498db" />
+      </div>
       <input
         id="addTodoTextInput"
         className="add-todo-text-input"

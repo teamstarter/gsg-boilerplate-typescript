@@ -1,9 +1,10 @@
 /* FORM */
-#todoMenu1 > #toggleAll {
+#todoMenu1 {
   position: relative;
 }
 
-#todoMenu1 > #toggleAll .select-priority {
+#todoMenu1 > .select-priority {
+  color: #777;
   top: 50px;
   left: 10px;
   position: absolute;
@@ -13,7 +14,7 @@
 }
 
 /* PRIORITY SELECTOR */
-#todoMenu1 > #toggleAll .select-priority .priority {
+#todoMenu1 > .select-priority .priority {
   display: flex;
   align-items: center;
   width: 100px;
@@ -21,20 +22,20 @@
   cursor: pointer;
 }
 
-#todoMenu1 > #toggleAll .select-priority .priority:hover .color-square {
+#todoMenu1 > .select-priority .priority:hover .color-square {
   border: 1px solid #000;
 }
 
-#todoMenu1 > #toggleAll .select-priority .priority:hover .text-content {
+#todoMenu1 > .select-priority .priority:hover .text-content {
   color: #000;
 }
 
-#todoMenu1 > #toggleAll .select-priority .priority .color-square {
+#todoMenu1 > .select-priority .priority .color-square {
   width: 20px;
   height: 20px;
   margin-left: 5px;
 }
 
-#todoMenu1 > #toggleAll .select-priority .priority .text-content {
+#todoMenu1 > .select-priority .priority .text-content {
   margin-left: 5px;
 }
