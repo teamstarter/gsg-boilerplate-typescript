@@ -1,0 +1,40 @@
+/* FORM */
+#todoMenu1 > #toggleAll {
+  position: relative;
+}
+
+#todoMenu1 > #toggleAll .select-priority {
+  top: 50px;
+  left: 10px;
+  position: absolute;
+  z-index: 1;
+  background-color: #f4f5f6;
+  border-radius: 10px;
+}
+
+/* PRIORITY SELECTOR */
+#todoMenu1 > #toggleAll .select-priority .priority {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+}
+
+#todoMenu1 > #toggleAll .select-priority .priority:hover .color-square {
+  border: 1px solid #000;
+}
+
+#todoMenu1 > #toggleAll .select-priority .priority:hover .text-content {
+  color: #000;
+}
+
+#todoMenu1 > #toggleAll .select-priority .priority .color-square {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+#todoMenu1 > #toggleAll .select-priority .priority .text-content {
+  margin-left: 5px;
+}

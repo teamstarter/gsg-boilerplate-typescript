@@ -2,6 +2,15 @@ import React, { KeyboardEvent, useEffect } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import './Form.css'
 
+const Priority = ({ title, color }: { title: string; color: string }) => {
+  return (
+    <div className={'priority'}>
+      <div className="color-square" style={{ backgroundColor: color }}></div>
+      <p className="text-content">{title}</p>
+    </div>
+  )
+}
+
 export default function Form() {
   const GMT = 2
   const [dateNow, setDateNow] = React.useState('')
@@ -72,6 +81,12 @@ export default function Form() {
         aria-label="Toggle all to do tasks"
       >
         <span className="rotate">❯</span>
+        <div className="select-priority">
+          <Priority title="Urgent" color="#8967d0" />
+          <Priority title="High" color="#e74c3c" />
+          <Priority title="Medium" color="#2ecc71" />
+          <Priority title="Low" color="#3498db" />
+        </div>
       </button>
       <input
         id="addTodoTextInput"
