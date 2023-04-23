@@ -27,7 +27,7 @@ export default function TaskElement({
     }
   `
 
-  const { id, name, active, date } = task
+  const { id, name, active, date, color } = task
   const dateString = new Date(date * 1000).toLocaleString()
 
   const [taskUpdate] = useMutation(UPDATE_TASK)
@@ -80,8 +80,9 @@ export default function TaskElement({
         className={`todo-text ${!active && 'todo-checked-text'}`}
         onChange={e => debouncedHandleUpdate(e.currentTarget.value)}
         defaultValue={name}
+        style={{ color: color }}
       ></input>
-      <p>{dateString}</p>
+      <p style={{ color: color }}>{dateString}</p>
       <button className="delete-button" onClick={handleDelete}>
         ×
       </button>

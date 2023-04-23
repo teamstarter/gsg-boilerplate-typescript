@@ -3,4 +3,5 @@ export type Task = {
   name: string
   active: boolean
   date: number
+  color: string
 }

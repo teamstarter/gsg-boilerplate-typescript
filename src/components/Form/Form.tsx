@@ -2,9 +2,27 @@ import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import './Form.css'
 
-const Priority = ({ title, color }: { title: string; color: string }) => {
+interface PriorityProps {
+  title: string
+  color: string
+  setTogglePriority: React.Dispatch<React.SetStateAction<boolean>>
+  setPriorityColor: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Priority = ({
+  title,
+  color,
+  setTogglePriority,
+  setPriorityColor
+}: PriorityProps) => {
   return (
-    <div className={'priority'}>
+    <div
+      className={'priority'}
+      onClick={() => {
+        setPriorityColor(color)
+        setTogglePriority(false)
+      }}
+    >
       <div className="color-square" style={{ backgroundColor: color }}></div>
       <p className="text-content">{title}</p>
     </div>
@@ -15,6 +33,7 @@ export default function Form() {
   const GMT = 2
   const [dateNow, setDateNow] = React.useState('')
   const [togglePriority, setTogglePriority] = useState(false)
+  const [priorityColor, setPriorityColor] = useState('#2ecc71')
 
   /* GRAPHQL MUTATION */
   const ADD_TASK = gql`
@@ -65,7 +84,8 @@ export default function Form() {
             task: {
               name: e.currentTarget.value,
               active: true,
-              date: seconds
+              date: seconds,
+              color: priorityColor
             }
           }
         })
@@ -89,10 +109,30 @@ export default function Form() {
         className="select-priority"
         style={{ display: `${togglePriority ? 'block' : 'none'}` }}
       >
-        <Priority title="Urgent" color="#8967d0" />
-        <Priority title="High" color="#e74c3c" />
-        <Priority title="Medium" color="#2ecc71" />
-        <Priority title="Low" color="#3498db" />
+        <Priority
+          title="Urgent"
+          color="#8967d0"
+          setTogglePriority={setTogglePriority}
+          setPriorityColor={setPriorityColor}
+        />
+        <Priority
+          title="High"
+          color="#e74c3c"
+          setTogglePriority={setTogglePriority}
+          setPriorityColor={setPriorityColor}
+        />
+        <Priority
+          title="Medium"
+          color="#2ecc71"
+          setTogglePriority={setTogglePriority}
+          setPriorityColor={setPriorityColor}
+        />
+        <Priority
+          title="Low"
+          color="#3498db"
+          setTogglePriority={setTogglePriority}
+          setPriorityColor={setPriorityColor}
+        />
       </div>
       <input
         id="addTodoTextInput"
@@ -102,6 +142,7 @@ export default function Form() {
         aria-label="Enter to do text"
         autoFocus={false}
         onKeyDown={handleKeyDown}
+        style={{ color: priorityColor }}
       />
       <input
         type="datetime-local"
