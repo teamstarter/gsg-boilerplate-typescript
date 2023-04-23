@@ -9,6 +9,7 @@
   width: 22px;
   border-radius: 3px;
   border: 1px solid #f4f5f6;
+  cursor: pointer;
 }
 
 #todoMenu2 #todoMenu2LeftPart > img:nth-child(2) {
@@ -19,4 +20,9 @@
 #todoMenu2 #todoMenu2LeftPart > img:last-child {
   transform: rotate(90deg);
   margin-left: 4px;
+}
+
+#todoMenu2 > button,
+#todoMenu2 .todo-menu-2-buttons button {
+  cursor: pointer;
 }
