@@ -4,14 +4,14 @@ import { WebSocketLink } from '@apollo/client/link/ws'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: 'http://localhost:8080/graphql'
 })
 
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:8080/graphql`,
   options: {
-    reconnect: true,
-  },
+    reconnect: true
+  }
 })
 
 // The split function takes three parameters:
@@ -33,7 +33,7 @@ const splitLink = split(
 
 const client = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 })
 
 export default client

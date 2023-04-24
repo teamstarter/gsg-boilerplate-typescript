@@ -1,45 +1,15 @@
-import { gql, useQuery, useSubscription } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 import React from 'react'
-
-const GET_TASKS_COUNT = gql`
-  query GetTasksCount($where: SequelizeJSON) {
-    taskCount(where: $where)
-  }
-`
-
-const TASK_ADDED = gql`
-  subscription OnTaskAdded {
-    taskCreated {
-      id
-      name
-      active
-    }
-  }
-`
-
-const TASK_UPDATED = gql`
-  subscription OnTaskAdded {
-    taskUpdated {
-      id
-      name
-      active
-    }
-  }
-`
-
-const TASK_DELETED = gql`
-  subscription OnTaskDeleted {
-    taskDeleted {
-      id
-      name
-      active
-    }
-  }
-`
+import {
+  TASK_ADDED,
+  TASK_UPDATED,
+  TASK_DELETED
+} from '../graphql/task/subscription'
+import { GET_TASKS_COUNT } from '../graphql/task/query'
 
 export default function Foot({
   select,
-  currentStatus,
+  currentStatus
 }: {
   select: (status: string) => void
   currentStatus: string
@@ -47,27 +17,27 @@ export default function Foot({
   const { loading, data, refetch } = useQuery(GET_TASKS_COUNT, {
     variables: {
       where: {
-        active: true,
-      },
-    },
+        active: true
+      }
+    }
   })
 
   useSubscription(TASK_ADDED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   useSubscription(TASK_UPDATED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   useSubscription(TASK_DELETED, {
     onSubscriptionData: () => {
       refetch()
-    },
+    }
   })
 
   if (loading) return <p>Loading ...</p>
@@ -100,9 +70,8 @@ export default function Foot({
         </button>
         <button
           id="showCompletedTodos"
-          className={`menu-2-button ${
-            currentStatus === 'completed' && 'active'
-          }`}
+          className={`menu-2-button ${currentStatus === 'completed' &&
+            'active'}`}
           aria-label="Show completed to do tasks"
           onClick={() => select('completed')}
         >

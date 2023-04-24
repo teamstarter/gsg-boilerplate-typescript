@@ -20,6 +20,15 @@ export default function Task(sequelize: any) {
       color: {
         type: DataTypes.STRING,
         allowNull: true
+      },
+      memoDate: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      memoSent: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
     },
     {
