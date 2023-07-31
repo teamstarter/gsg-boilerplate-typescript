@@ -20,6 +20,10 @@ export default function Task(sequelize: any) {
       color: {
         type: DataTypes.STRING,
         allowNull: true
+      },
+      reminderDate:{
+        type: DataTypes.DATE,
+        allowNull: true
       }
     },
     {
