@@ -111,6 +111,7 @@ body {
 
 .toggle-all,
 .delete-button,
+.set-reminder-button,
 .delete-completed-button,
 .menu-2-button {
   background: none;
@@ -215,8 +216,8 @@ body {
 .todos .todo {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 450px 50px;
-  grid-template-columns: 50px 450px 50px;
+  -ms-grid-columns: 50px 2fr 1fr 30px 30px;
+  grid-template-columns: 50px 2fr 1fr 30px 30px;
   border-bottom: 1px solid #ededed;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -279,14 +280,40 @@ body {
   justify-self: end;
   visibility: hidden;
 }
+.set-reminder-button {
+  font-size: 18px;
+  -ms-grid-column-align: end;
+  justify-self: end;
+  visibility: hidden;
+}
 
-.todos .todo:hover .delete-button {
+.todos .todo:hover .delete-button,
+.todos .todo:hover .set-reminder-button {
   visibility: visible;
 }
 
+.set-reminder-button:hover {
+  font-size: 22px;
+  cursor: pointer;
+}
 .delete-button:hover {
   color: #f14a5d;
   cursor: pointer;
+}
+.todo-reminder {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+}
+.todo-reminder-hidden {
+  visibility: hidden;
+}
+.todo-reminder-current {
+  color: #f14a5d;
+  font-weight: bold;
 }
 
 @media (max-width: 1024px) {
@@ -294,7 +321,8 @@ body {
     height: var(--mobile-hero-height);
   }
 
-  .delete-button {
+  .delete-button,
+  .set-reminder-button {
     color: #f14a5d;
     -ms-grid-column-align: center;
     justify-self: center;
