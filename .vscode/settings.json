@@ -5,7 +5,7 @@
     "**/.DS_Store": true
   },
   "javascript.validate.enable": false,
-  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreview": true,
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "typescript.surveys.enabled": false,
   "editor.quickSuggestions": {
