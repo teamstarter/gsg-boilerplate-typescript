@@ -212,11 +212,11 @@ body {
   overflow: auto;
 }
 
-.todos .todo {
+.todos {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 450px 50px;
-  grid-template-columns: 50px 450px 50px;
+  -ms-grid-columns: 50px 350px 100px;
+  grid-template-columns: 50px 350px 100px;
   border-bottom: 1px solid #ededed;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -226,8 +226,39 @@ body {
   word-wrap: break-word;
 }
 
+.todo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #ededed;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+
+.flex-left {
+  justify-content: flex-start;
+  padding-left: 0.5rem;
+}
+
+.flex-right {
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+}
+
+.reminder-late {
+  color: red;
+}
+
 /* checkbox centering */
-.todos .todo .pretty {
+.todos .pretty {
   -ms-grid-column-align: center;
   justify-self: center;
   -webkit-transform: scale(1.4);
@@ -357,7 +388,7 @@ body {
     text-decoration: none;
   }
 
-  .todos .todo {
+  .todos {
     -ms-grid-columns: 50px var(--mobile-todo-text-width) 50px;
     grid-template-columns: 50px var(--mobile-todo-text-width) 50px;
   }

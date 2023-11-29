@@ -6,7 +6,7 @@ import { Task } from '../customTypes'
 
 export default function TaskElement({
   task,
-  reloadList,
+  reloadList
 }: {
   task: Task
   reloadList: () => void
@@ -17,6 +17,7 @@ export default function TaskElement({
         id
         name
         active
+        reminder
       }
     }
   `
@@ -26,7 +27,7 @@ export default function TaskElement({
     }
   `
 
-  const { id, name, active } = task
+  const { id, name, active, reminder } = task
 
   const [taskUpdate] = useMutation(UPDATE_TASK)
 
@@ -35,8 +36,8 @@ export default function TaskElement({
   async function handleCheck(e: ChangeEvent<HTMLInputElement>) {
     await taskUpdate({
       variables: {
-        task: { id: id, active: !e.currentTarget.checked },
-      },
+        task: { id: id, active: !e.currentTarget.checked }
+      }
     })
     reloadList()
   }
@@ -44,17 +45,30 @@ export default function TaskElement({
   function handleDelete(e: MouseEvent<HTMLButtonElement>) {
     taskDelete({
       variables: {
-        id: id,
-      },
+        id: id
+      }
     })
   }
 
   const { callback: debouncedHandleUpdate }: any = useDebouncedCallback(
-    (value: any) => {
+    (values: { newName: string; newReminder: Date }) => {
       taskUpdate({
         variables: {
-          task: { id: id, name: value },
-        },
+          task: { id: id, name: values.newName, reminder: values.newReminder }
+        }
+      })
+    },
+    1000
+  )
+
+  const { callback: updateReminder }: any = useDebouncedCallback(
+    (values: { newReminder: Date }) => {
+      console.log('Debounced update triggered:', values)
+
+      taskUpdate({
+        variables: {
+          task: { id: id, reminder: values.newReminder }
+        }
       })
     },
     1000
@@ -62,26 +76,44 @@ export default function TaskElement({
 
   return (
     <li className="todo">
-      <div className="pretty p-icon p-round">
+      <div className="flex-row flex-left">
+        <div>
+          <input
+            type="checkbox"
+            className="checkbox"
+            checked={!active}
+            onChange={handleCheck}
+          />
+        </div>
         <input
-          type="checkbox"
-          className="checkbox"
-          checked={!active}
-          onChange={handleCheck}
-        />
-        <div className="state">
-          <i className="icon mdi mdi-check mdi-18px"></i>
-          <label></label>
+          className={`todo-text ${!active && 'todo-checked-text'}`}
+          onChange={e =>
+            debouncedHandleUpdate({ newName: e.currentTarget.value })
+          }
+          defaultValue={name}
+        ></input>
+      </div>
+
+      <div className="flex-row flex-right">
+        <input
+          className={
+            reminder && new Date(reminder) < new Date() ? 'reminder-late' : ''
+          }
+          type="date"
+          onChange={e =>
+            updateReminder({
+              newReminder: new Date(e.currentTarget.value)
+            })
+          }
+          defaultValue={reminder ? reminder.split('T')[0] : ''}
+        ></input>
+
+        <div>
+          <button className="delete-button" onClick={handleDelete}>
+            ×
+          </button>
         </div>
       </div>
-      <input
-        className={`todo-text ${!active && 'todo-checked-text'}`}
-        onChange={(e) => debouncedHandleUpdate(e.currentTarget.value)}
-        defaultValue={name}
-      ></input>
-      <button className="delete-button" onClick={handleDelete}>
-        ×
-      </button>
     </li>
   )
 }
