@@ -1,21 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Task } from '../customTypes'
 
-interface ReminderNotificationProps {
-  name: string
-  date: string
-}
+export default function ReminderNotification({ task }: { task: Task }) {
+  const [isActive, setIsActive] = useState(task.active)
 
-export default function ReminderNotification({
-  name,
-  date
-}: ReminderNotificationProps) {
   return (
-    <div className="reminder-notification-container">
-      <h1 className="reminder-notification-title">Task reminder</h1>
-      <div className="reminder-notification-content">
-        <p>{name}</p>
-        <p>{`Due ${date.split('T')[0]}`}</p>
-      </div>
-    </div>
+    <>
+      {isActive && (
+        <div className="reminder-notification-container">
+          <div className="reminder-notification-header">
+            <h1 className="reminder-notification-title">Task reminder</h1>
+            <button
+              className="reminder-notification-delete-button"
+              onClick={() => setIsActive(false)}
+            >
+              ×
+            </button>
+          </div>
+          <div className="reminder-notification-content">
+            <p>{task.name}</p>
+            <p>{`Due ${task.date.split('T')[0]}`}</p>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

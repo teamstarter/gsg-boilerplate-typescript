@@ -92,7 +92,7 @@ export default function TaskList({ status }: { status: string }) {
         <>
           <TaskElement task={task} key={task.id} reloadList={refetch} />
           {isReminderNotificationToBeDisplayed(task.date, task.active) && (
-            <ReminderNotification name={task.name} date={task.date} />
+            <ReminderNotification task={task} />
           )}
         </>
       ))}
