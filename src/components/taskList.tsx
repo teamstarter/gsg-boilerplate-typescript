@@ -3,6 +3,7 @@ import { gql, useQuery, useSubscription } from '@apollo/client'
 
 import TaskElement from './taskElement'
 import { Task } from '../customTypes'
+import ReminderNotification from './reminderNotification'
 
 const GET_TASKS = gql`
   query GetTasks($order: String, $where: SequelizeJSON) {
@@ -11,6 +12,7 @@ const GET_TASKS = gql`
       name
       active
       color
+      date
     }
   }
 `
@@ -71,10 +73,28 @@ export default function TaskList({ status }: { status: string }) {
 
   if (error) return <p>An error occured while loading the tasks !</p>
 
+  const today = new Date().toISOString().split('T')[0]
+
+  const isReminderNotificationToBeDisplayed = (
+    date: string,
+    active: boolean
+  ) => {
+    if (date !== undefined && active) {
+      const formattedDate = date?.split('T')[0]
+      return today === formattedDate
+    }
+    return false
+  }
+
   return (
     <ul id="todos" className="todos" aria-label="List of to do tasks">
       {data.task.map((task: Task) => (
-        <TaskElement task={task} key={task.id} reloadList={refetch} />
+        <>
+          <TaskElement task={task} key={task.id} reloadList={refetch} />
+          {isReminderNotificationToBeDisplayed(task.date, task.active) && (
+            <ReminderNotification task={task} />
+          )}
+        </>
       ))}
     </ul>
   )

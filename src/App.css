@@ -40,3 +40,42 @@
 .todo-text {
   border: none;
 }
+
+.reminder-notification-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 10px;
+  border: solid rgb(117, 9, 117) 2px;
+}
+
+.reminder-notification-title {
+  font-size: 28px;
+}
+
+.reminder-notification-content {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.reminder-notification-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reminder-notification-delete-button {
+  font-size: 28px;
+  background-color: inherit;
+  border: none;
+}
+
+.reminder-notification-delete-button:hover {
+  cursor: pointer;
+}
