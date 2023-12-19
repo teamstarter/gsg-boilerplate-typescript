@@ -11,6 +11,7 @@ const GET_TASKS = gql`
       name
       active
       color
+      date
     }
   }
 `
