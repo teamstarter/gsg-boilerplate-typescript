@@ -63,3 +63,19 @@
   gap: 8px;
   flex-direction: column;
 }
+
+.reminder-notification-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reminder-notification-delete-button {
+  font-size: 28px;
+  background-color: inherit;
+  border: none;
+}
+
+.reminder-notification-delete-button:hover {
+  cursor: pointer;
+}
