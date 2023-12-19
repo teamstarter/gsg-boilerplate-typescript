@@ -215,8 +215,8 @@ body {
 .todos .todo {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 450px 50px;
-  grid-template-columns: 50px 450px 50px;
+  -ms-grid-columns: 50px 270px 180px 50px;
+  grid-template-columns: 50px 270px 180px 50px;
   border-bottom: 1px solid #ededed;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -224,6 +224,7 @@ body {
   overflow-wrap: break-word;
   /* word-wrap is renamed to overflow-wrap but Edge still uses word-wrap */
   word-wrap: break-word;
+  column-gap: 10px;
 }
 
 /* checkbox centering */
@@ -278,6 +279,7 @@ body {
   -ms-grid-column-align: end;
   justify-self: end;
   visibility: hidden;
+  margin: 10px;
 }
 
 .todos .todo:hover .delete-button {
