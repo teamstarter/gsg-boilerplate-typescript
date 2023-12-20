@@ -66,19 +66,37 @@ body {
 .todo-menu-1 {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 1fr;
-  grid-template-columns: 50px 1fr;
+  -ms-grid-columns: 1fr 10fr 1fr 2fr;
+  grid-template-columns: 1fr 10fr 1fr 2fr;
   -ms-grid-rows: 60px;
   grid-template-rows: 60px;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
+  background: center;
   align-items: stretch;
   -webkit-box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.19);
   box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.19);
   border-bottom: 1px solid #e6e6e6;
 }
 
+.todo-menu-1 .menu-1-button {
+  background-color: #EA4C89;
+  border-radius: 7px;
+  border-style: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 10px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.todo-menu-1 .menu-1-button:hover {
+  background-color: #CF396B;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .add-todo-text-input {
+  width: 100%;
   outline: none;
   border: none;
   border-bottom: 1px solid #e6e6e6;
@@ -120,9 +138,8 @@ body {
 
 .toggle-all {
   color: #e6e6e6;
-  -ms-grid-column-align: stretch;
-  justify-self: stretch;
   text-align: center;
+  margin-inline: 20px;
 }
 
 .toggle-all-checked {
@@ -215,8 +232,8 @@ body {
 .todos .todo {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 450px 50px;
-  grid-template-columns: 50px 450px 50px;
+  -ms-grid-columns: 1fr 9fr 1fr 1fr;
+  grid-template-columns: 1fr 9fr 1fr 1fr;
   border-bottom: 1px solid #ededed;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -254,6 +271,7 @@ body {
 }
 
 .todo-text {
+  background: none;
   padding-top: 13px;
   padding-bottom: 13px;
 }
@@ -275,8 +293,8 @@ body {
 .delete-button {
   font-size: 28px;
   color: #df8383;
-  -ms-grid-column-align: end;
-  justify-self: end;
+  -ms-grid-column-align: center;
+  justify-self: center;
   visibility: hidden;
 }
 
@@ -289,15 +307,166 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-  .hero {
-    height: var(--mobile-hero-height);
-  }
 
+.svg-button {
+  stroke: lightgray;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 20px;
+  margin-inline: 20px;
+}
+
+.svg-button:hover {
+  stroke: gray;
+}
+
+.svg-button.activated {
+  stroke: #8967d0;
+}
+
+.svg-button.activated:hover {
+  stroke: #574285;
+}
+
+.svg-button-container {
+  position: relative;
+  display: inline-block;
+  align-self: center;
+}
+
+.svg-tooltip {
+  visibility: hidden;
+  width: 120px;
+  color: #574285;
+  text-align: center;
+  border: 1px solid #574285;
+  border-radius: 7px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 30%;
+  right: 65%;
+  margin-top: -10px;
+  margin-right: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.svg-button-container:hover .svg-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-backdrop {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  background-color: white;
+  padding: 40px;
+  border-radius: 5px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #aaa;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+.reminder-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #574285;
+  font-size: 18px;
+}
+
+.modal input[type='date'] {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #333;
+  outline: none;
+}
+
+.modal input[type='date']:focus {
+  border-color: #8967d0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 5px rgba(137, 103, 208, 0.6);
+}
+
+.modal button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #EA4C89;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal button:hover {
+  background-color: #CF396B;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.modal button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.modal .remove-button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal .remove-button:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+@media (max-width: 1024px) {
   .delete-button {
     color: #f14a5d;
     -ms-grid-column-align: center;
     justify-self: center;
+    align-self: center;
     visibility: visible;
   }
 }
@@ -358,8 +527,8 @@ body {
   }
 
   .todos .todo {
-    -ms-grid-columns: 50px var(--mobile-todo-text-width) 50px;
-    grid-template-columns: 50px var(--mobile-todo-text-width) 50px;
+    -ms-grid-columns: 1fr 50% 1fr 1fr;
+    grid-template-columns: 1fr 50% 1fr 1fr;
   }
 
   ::-webkit-input-placeholder {

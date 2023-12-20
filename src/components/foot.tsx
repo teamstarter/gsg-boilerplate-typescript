@@ -1,41 +1,8 @@
-import { gql, useQuery, useSubscription } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 import React from 'react'
 
-const GET_TASKS_COUNT = gql`
-  query GetTasksCount($where: SequelizeJSON) {
-    taskCount(where: $where)
-  }
-`
-
-const TASK_ADDED = gql`
-  subscription OnTaskAdded {
-    taskCreated {
-      id
-      name
-      active
-    }
-  }
-`
-
-const TASK_UPDATED = gql`
-  subscription OnTaskAdded {
-    taskUpdated {
-      id
-      name
-      active
-    }
-  }
-`
-
-const TASK_DELETED = gql`
-  subscription OnTaskDeleted {
-    taskDeleted {
-      id
-      name
-      active
-    }
-  }
-`
+import { GET_TASKS_COUNT } from '../graphql/queries/taskQueries'
+import { TASK_ADDED, TASK_UPDATED, TASK_DELETED } from '../graphql/subscriptions/taskSubscriptions'
 
 export default function Foot({
   select,

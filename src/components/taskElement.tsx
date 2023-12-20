@@ -1,36 +1,24 @@
 import React, { ChangeEvent, MouseEvent } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useDebouncedCallback } from 'use-debounce'
 
-import { Task } from '../customTypes'
+import { Task, reminderDateModalOpenerType } from '../customTypes'
+import SvgButton from './ui/SvgButton'
+import {ReactComponent as ReminderIcon} from '../assets/reminderIcon.svg'
+import { UPDATE_TASK, DELETE_TASK } from '../graphql/mutations/taskMutations'
 
 export default function TaskElement({
   task,
   reloadList,
+  openReminderModal
 }: {
   task: Task
   reloadList: () => void
+  openReminderModal: reminderDateModalOpenerType
 }) {
-  const UPDATE_TASK = gql`
-    mutation UpdateTask($task: taskInput!) {
-      taskUpdate(task: $task) {
-        id
-        name
-        active
-      }
-    }
-  `
-  const DELETE_TASK = gql`
-    mutation DeleteTask($id: Int!) {
-      taskDelete(id: $id)
-    }
-  `
-
-  const { id, name, active } = task
-
   const [taskUpdate] = useMutation(UPDATE_TASK)
-
   const [taskDelete] = useMutation(DELETE_TASK)
+  const { id, name, active, reminderDate } = task
 
   async function handleCheck(e: ChangeEvent<HTMLInputElement>) {
     await taskUpdate({
@@ -60,6 +48,14 @@ export default function TaskElement({
     1000
   )
 
+  function updateReminderDate(newDate: string) {
+    taskUpdate({
+      variables: {
+        task: { id: id, reminderDate: newDate },
+      },
+    })
+  }
+
   return (
     <li className="todo">
       <div className="pretty p-icon p-round">
@@ -79,6 +75,13 @@ export default function TaskElement({
         onChange={(e) => debouncedHandleUpdate(e.currentTarget.value)}
         defaultValue={name}
       ></input>
+      <SvgButton
+        svgSource={<ReminderIcon />}
+        onClick={() => {openReminderModal(reminderDate,updateReminderDate);}}
+        className={reminderDate ? 'activated' : ''}
+        disabled={!active}
+        tooltip={reminderDate}
+      />
       <button className="delete-button" onClick={handleDelete}>
         ×
       </button>
