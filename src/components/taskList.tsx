@@ -1,41 +1,18 @@
 import React, { useEffect } from 'react'
-import { gql, useQuery, useSubscription } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 
 import TaskElement from './taskElement'
-import { Task } from '../customTypes'
+import { Task, reminderDateModalOpenerType } from '../customTypes'
 
-const GET_TASKS = gql`
-  query GetTasks($order: String, $where: SequelizeJSON) {
-    task(order: $order, where: $where) {
-      id
-      name
-      active
-      color
-    }
-  }
-`
+import { GET_TASKS } from '../graphql/queries/taskQueries'
+import { TASK_ADDED, TASK_DELETED, TASK_UPDATED } from '../graphql/subscriptions/taskSubscriptions'
 
-const TASK_ADDED = gql`
-  subscription OnTaskAdded {
-    taskCreated {
-      id
-      name
-      active
-    }
-  }
-`
+interface TaskListProps {
+  status: string;
+  openReminderModal: reminderDateModalOpenerType;
+}
 
-const TASK_DELETED = gql`
-  subscription OnTaskDeleted {
-    taskDeleted {
-      id
-      name
-      active
-    }
-  }
-`
-
-export default function TaskList({ status }: { status: string }) {
+const TaskList: React.FC<TaskListProps> = ({ status, openReminderModal}) => {
   function isActive(status: string) {
     if (status === 'active') return true
     else if (status === 'completed') return false
@@ -67,6 +44,12 @@ export default function TaskList({ status }: { status: string }) {
     }
   })
 
+  useSubscription(TASK_UPDATED, {
+    onSubscriptionData: () => {
+      refetch()
+    },
+  })
+
   if (loading) return <p>Loading ...</p>
 
   if (error) return <p>An error occured while loading the tasks !</p>
@@ -74,8 +57,9 @@ export default function TaskList({ status }: { status: string }) {
   return (
     <ul id="todos" className="todos" aria-label="List of to do tasks">
       {data.task.map((task: Task) => (
-        <TaskElement task={task} key={task.id} reloadList={refetch} />
+        <TaskElement task={task} key={task.id} reloadList={refetch} openReminderModal={openReminderModal} />
       ))}
     </ul>
   )
 }
+export default TaskList;
