@@ -1,32 +1,20 @@
 import React, { ChangeEvent, MouseEvent } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useDebouncedCallback } from 'use-debounce'
+import { UPDATE_TASK } from '../../graphql/Mutations/updateTask'
+import { DELETE_TASK } from '../../graphql/Mutations/deleteTask'
 
-import { Task } from '../customTypes'
+import './taskElement.css'
+import { Task } from '../../customTypes'
 
 export default function TaskElement({
   task,
-  reloadList,
+  reloadList
 }: {
   task: Task
   reloadList: () => void
 }) {
-  const UPDATE_TASK = gql`
-    mutation UpdateTask($task: taskInput!) {
-      taskUpdate(task: $task) {
-        id
-        name
-        active
-      }
-    }
-  `
-  const DELETE_TASK = gql`
-    mutation DeleteTask($id: Int!) {
-      taskDelete(id: $id)
-    }
-  `
-
-  const { id, name, active } = task
+  const { id, name, active, date, color } = task
 
   const [taskUpdate] = useMutation(UPDATE_TASK)
 
@@ -35,8 +23,8 @@ export default function TaskElement({
   async function handleCheck(e: ChangeEvent<HTMLInputElement>) {
     await taskUpdate({
       variables: {
-        task: { id: id, active: !e.currentTarget.checked },
-      },
+        task: { id: id, active: !e.currentTarget.checked }
+      }
     })
     reloadList()
   }
@@ -44,8 +32,8 @@ export default function TaskElement({
   function handleDelete(e: MouseEvent<HTMLButtonElement>) {
     taskDelete({
       variables: {
-        id: id,
-      },
+        id: id
+      }
     })
   }
 
@@ -53,15 +41,15 @@ export default function TaskElement({
     (value: any) => {
       taskUpdate({
         variables: {
-          task: { id: id, name: value },
-        },
+          task: { id: id, name: value }
+        }
       })
     },
     1000
   )
 
   return (
-    <li className="todo">
+    <li className="todo" style={{ background: color }}>
       <div className="pretty p-icon p-round">
         <input
           type="checkbox"
@@ -74,11 +62,14 @@ export default function TaskElement({
           <label></label>
         </div>
       </div>
-      <input
-        className={`todo-text ${!active && 'todo-checked-text'}`}
-        onChange={(e) => debouncedHandleUpdate(e.currentTarget.value)}
-        defaultValue={name}
-      ></input>
+      <div className="todo-content">
+        <input
+          className={`todo-text ${!active && 'todo-checked-text'}`}
+          onChange={e => debouncedHandleUpdate(e.currentTarget.value)}
+          defaultValue={name}
+        ></input>
+        <div className="todo-date">{new Date(date).toLocaleDateString()}</div>
+      </div>
       <button className="delete-button" onClick={handleDelete}>
         ×
       </button>

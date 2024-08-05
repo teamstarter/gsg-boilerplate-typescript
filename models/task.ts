@@ -20,6 +20,10 @@ export default function Task(sequelize: any) {
       color: {
         type: DataTypes.STRING,
         allowNull: true
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false
       }
     },
     {
